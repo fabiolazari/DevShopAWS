@@ -5,10 +5,12 @@ using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Amazon.SQS;
 using Amazon.SQS.Model;
+using Amazon.SimpleNotificationService;
 using Compartilhado.Model;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Amazon.SimpleNotificationService.Model;
 
 namespace Compartilhado
 {
@@ -36,6 +38,17 @@ namespace Compartilhado
 			return context.FromDocument<T>(doc);
 		}
 
+		public static async Task SolicitarEnviarEmail(Pedido pedido)
+		{
+			if(EnviarEmail(pedido))
+			{
+				pedido.Enviado = true;
+				var client = new AmazonDynamoDBClient(RegionEndpoint.SAEast1);
+				var context = new DynamoDBContext(client);
+				await context.SaveAsync(pedido);
+			}
+		}
+
 		public static async Task EnviarParaFila(EnumFilasSQS fila, Pedido pedido)
 		{
 			var json = JsonConvert.SerializeObject(pedido);
@@ -50,16 +63,21 @@ namespace Compartilhado
 
 		public static async Task EnviarParaFila(EnumFilasSNS fila, Pedido pedido)
 		{
-			await Task.CompletedTask;
-			/*
 			var json = JsonConvert.SerializeObject(pedido);
-			var client = new AmazonSQSClient();
-			var request = new SendMessageRequest
+			var client = new AmazonSimpleNotificationServiceClient(region: RegionEndpoint.SAEast1);
+			var request = new PublishRequest
 			{
-				QueueUrl = $"https://sqs.sa-east-1.amazonaws.com/552166525553/{fila}",
-				MessageBody = json
+				TopicArn = $"aws:sns:sa-east-1:552166525553:{fila.ToString()}",
+				Message = json
 			};
-			await client.SendMessageAsync(request);*/
+
+			await client.PublishAsync(request);
+		}
+
+		private static bool EnviarEmail(Pedido pedido)
+		{
+			//Rotina para envio de e-mail, ou usar alguma ferramenta da AWS.
+			return true;
 		}
 	}
 }

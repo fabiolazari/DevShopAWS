@@ -50,6 +50,7 @@ namespace Pagador
             }
             else
             {
+                pedido.Pago = true;
                 await AmazonUtil.EnviarParaFila(EnumFilasSQS.pago, pedido);
                 await pedido.SalvarAsync();
             }

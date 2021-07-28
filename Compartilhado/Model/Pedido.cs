@@ -30,5 +30,6 @@ namespace Compartilhado.Model
 		public bool Cancelado { get; set; }
 		public bool Pago { get; set; }
         public bool Faturado { get; set; }
+        public bool Enviado { get; set; }
     }
 }

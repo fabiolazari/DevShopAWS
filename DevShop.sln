@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03_Reservador", "Reservador
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04_Pagador", "Pagador\04_Pagador.csproj", "{28265F42-2216-4AD1-88C0-F56A757BE771}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05_Faturador", "Faturador\05_Faturador.csproj", "{3F70D857-A264-409F-BCEE-BFE060A441BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06_Notificador", "Notificador\06_Notificador.csproj", "{62EE3E7D-1B6D-497A-B5CA-1E0751C8D629}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{28265F42-2216-4AD1-88C0-F56A757BE771}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28265F42-2216-4AD1-88C0-F56A757BE771}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28265F42-2216-4AD1-88C0-F56A757BE771}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F70D857-A264-409F-BCEE-BFE060A441BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F70D857-A264-409F-BCEE-BFE060A441BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F70D857-A264-409F-BCEE-BFE060A441BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F70D857-A264-409F-BCEE-BFE060A441BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62EE3E7D-1B6D-497A-B5CA-1E0751C8D629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62EE3E7D-1B6D-497A-B5CA-1E0751C8D629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62EE3E7D-1B6D-497A-B5CA-1E0751C8D629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62EE3E7D-1B6D-497A-B5CA-1E0751C8D629}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
