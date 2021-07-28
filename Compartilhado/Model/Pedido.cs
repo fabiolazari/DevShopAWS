@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Compartilhado.Model
 {
@@ -31,5 +32,17 @@ namespace Compartilhado.Model
 		public bool Pago { get; set; }
         public bool Faturado { get; set; }
         public bool Enviado { get; set; }
-    }
+
+		public override string ToString()
+		{
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Pedido Id   : {Id}");
+            sb.AppendLine($"Valor Total : {ValorTotal}");
+            sb.AppendLine($"Cliente     : {Cliente.Nome}");
+            sb.AppendLine($"Status      : {Status.ToString()}");
+            return sb.ToString();
+		}
+	}
+
+    
 }

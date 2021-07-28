@@ -40,7 +40,7 @@ namespace Compartilhado
 
 		public static async Task SolicitarEnviarEmail(Pedido pedido)
 		{
-			if(EnviarEmail(pedido))
+			if(Email.EnviarEmail(pedido))
 			{
 				pedido.Enviado = true;
 				var client = new AmazonDynamoDBClient(RegionEndpoint.SAEast1);
@@ -64,20 +64,13 @@ namespace Compartilhado
 		public static async Task EnviarParaFila(EnumFilasSNS fila, Pedido pedido)
 		{
 			var json = JsonConvert.SerializeObject(pedido);
-			var client = new AmazonSimpleNotificationServiceClient(region: RegionEndpoint.SAEast1);
-			var request = new PublishRequest
+			var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.SAEast1);
+			var request = new PublishRequest  
 			{
-				TopicArn = $"aws:sns:sa-east-1:552166525553:{fila.ToString()}",
+				TopicArn = $"arn:aws:sns:sa-east-1:552166525553:{fila}",
 				Message = json
 			};
-
 			await client.PublishAsync(request);
-		}
-
-		private static bool EnviarEmail(Pedido pedido)
-		{
-			//Rotina para envio de e-mail, ou usar alguma ferramenta da AWS.
-			return true;
 		}
 	}
 }

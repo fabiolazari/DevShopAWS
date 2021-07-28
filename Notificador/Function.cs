@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
-using Amazon.Lambda.SQSEvents;
+using Amazon.Lambda.SNSEvents;
 using Compartilhado;
 using Compartilhado.Model;
 using Newtonsoft.Json;
@@ -17,18 +17,18 @@ namespace Notificador
         {
         }
 
-        public async Task FunctionHandler(SQSEvent evnt, ILambdaContext context)
+        public async Task FunctionHandler(SNSEvent evnt, ILambdaContext context)
         {
             if (evnt.Records.Count > 1) throw new InvalidOperationException("Somente uma mensagem pode ser tratado por vez");
             var message = evnt.Records.FirstOrDefault();
             if (message == null) return;
-            await ProcessMessageAsync(message, context);
+            await ProcessRecordAsync(message, context);
         }
 
-        private async Task ProcessMessageAsync(SQSEvent.SQSMessage message, ILambdaContext context)
+        private async Task ProcessRecordAsync(SNSEvent.SNSRecord record, ILambdaContext context)
         {
-            var pedido = JsonConvert.DeserializeObject<Pedido>(message.Body);
-            context.Logger.LogLine($"Pedido enviado por e-mail {pedido.Id} - Cartão: {pedido.Cliente.Nome}");
+            var pedido = JsonConvert.DeserializeObject<Pedido>(record.Sns.Message);
+            context.Logger.LogLine($"Pedido enviado por e-mail {pedido.Id} - Cliente: {pedido.Cliente.Nome}");
             await AmazonUtil.SolicitarEnviarEmail(pedido);
         }
     }
